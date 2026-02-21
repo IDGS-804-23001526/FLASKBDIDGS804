@@ -62,7 +62,7 @@ CREATE TABLE `alumnos` (
 
 LOCK TABLES `alumnos` WRITE;
 /*!40000 ALTER TABLE `alumnos` DISABLE KEYS */;
-INSERT INTO `alumnos` VALUES (1,'Diego Alejandro','diego@gmail.com','2026-02-14 09:20:26','gonzalez','4771230033'),(2,'Roger','rogelio@gmail.com','2026-02-14 09:20:26',NULL,NULL),(3,'Uriel','uri@gmail.com','2026-02-14 09:20:26',NULL,NULL),(4,'diego','gonz@gmail.com','2026-02-20 17:55:44',NULL,NULL);
+INSERT INTO `alumnos` VALUES (1,'Diego Alejandro','diego@gmail.com','2026-02-14 09:20:26','gonzalez gaytan','4771230033'),(2,'Roger','rogelio@gmail.com','2026-02-14 09:20:26','echeveste mendiola','123456666'),(3,'Uriel','uri@gmail.com','2026-02-14 09:20:26','Hernandez Camacho','98773764'),(4,'diego','gonz@gmail.com','2026-02-20 17:55:44','gonz gat','273666464');
 /*!40000 ALTER TABLE `alumnos` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -75,4 +75,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-02-21  9:34:40
+-- Dump completed on 2026-02-21  9:49:07

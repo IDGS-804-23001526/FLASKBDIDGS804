@@ -1,14 +1,17 @@
 {% extends "layout.html" %}
 {% block container %}
 {% import "_macros.html" as macros %}
+{{form.csrf_token}}
 
-<form action="" class="max-w-md mx-auto" method="POST" novalidate>
-    {{ form.csrf_token }}
-    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+<form class="max-w-md mx-auto" method="POST" novalidate>
+    <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+    <div class="relative z-0 w-full mb-5 group">
+        {{macros.camposNuevos(form.id, class="block py-2.5 px-0 w-full text-sm text-heading bg-transparent border-0
+        border-b-2 border-default-medium appearance-none focus:outline-none focus:ring-0 focus:border-brand peer")}}
+    </div>
     <div class="relative z-0 w-full mb-5 group">
         {{macros.camposNuevos(form.nombre, class="block py-2.5 px-0 w-full text-sm text-heading bg-transparent border-0
-        border-b-2 border-default-medium appearance-none focus:outline-none focus:ring-0 focus:border-brand peer
-        cursor-not-allowed")}}
+        border-b-2 border-default-medium appearance-none focus:outline-none focus:ring-0 focus:border-brand peer")}}
     </div>
     <div class="relative z-0 w-full mb-5 group">
         {{macros.camposNuevos(form.apellidos, class="block py-2.5 px-0 w-full text-sm text-heading bg-transparent

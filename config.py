@@ -5,7 +5,7 @@ from sqlalchemy import create_engine
 
 class Config():
     SECRET_KEY = "ClaveSecreta"
-    SESSION_COOKIE_NAME = False
+    #SESSION_COOKIE_NAME = False
 
 class DevelopmentConfig(Config):
     DEBUG = True

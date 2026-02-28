@@ -7,10 +7,12 @@ from flask_wtf.csrf import CSRFProtect
 from config import DevelopmentConfig
 from flask import g
 import forms 
+from maestros.routes import maestros
 from models import db
 
 app = Flask(__name__)
 app.config.from_object(DevelopmentConfig)
+app.register_blueprint(maestros) # Registrar el blueprint de maestros
 db.init_app(app)
 migrate = Migrate(app, db) # migracion a base de datos
 csrf = CSRFProtect()
@@ -20,8 +22,7 @@ csrf = CSRFProtect()
 def page_not_found(e):
     return render_template("404.html"), 404
 
-@app.route("/")
-@app.route("/index", methods = ["GET", "POST"])
+@app.route("/", methods = ["GET", "POST"])
 def index():
     create_form = forms.UserForm(request.form)
 

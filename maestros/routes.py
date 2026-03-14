@@ -38,12 +38,20 @@ def detalles():
 def maestroInsert():
     create_form = forms.MaestroForm(request.form)
     if request.method == "POST":
+        if not create_form.validate():
+            return render_template("maestros/Maestros.html", form=create_form)
+        nueva_matricula = create_form.matricula.data
+
+        while db.session.query(Maestros).filter(Maestros.matricula == nueva_matricula).first() is not None:
+            nueva_matricula += 1
+            
         maes = Maestros(
-        matricula = create_form.matricula.data,
-        nombre = create_form.nombre.data,
-        apellidos = create_form.apellidos.data,
-        especialidad = create_form.especialidad.data,
-        email = create_form.email.data)
+            matricula = nueva_matricula,
+            nombre = create_form.nombre.data,
+            apellidos = create_form.apellidos.data,
+            especialidad = create_form.especialidad.data,
+            email = create_form.email.data
+        )
 
         db.session.add(maes)
         db.session.commit()

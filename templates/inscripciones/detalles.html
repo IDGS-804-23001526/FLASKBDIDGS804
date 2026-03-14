@@ -12,7 +12,6 @@
             <path stroke="currentColor" stroke-linecap="round" stroke-width="3" d="M6 12h.01m6 0h.01m5.99 0h.01" />
         </svg>
     </button>
-    <!-- Dropdown menu -->
     <div id="dropdown"
         class="z-10 bg-neutral-primary-medium border border-default-medium rounded-base shadow-lg w-36 hidden">
         <ul class="p-2 text-sm text-body font-medium" aria-labelledby="dropdownButton">
@@ -34,11 +33,12 @@
     <div class="flex flex-col items-center">
         <img class="w-24 h-24 mb-6 rounded-full" src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
             alt="Bonnie image" />
-        <h5 class="mb-0.5 text-xl font-semibold tracking-tight text-heading text-center">{{nombre}} {{apellidos}}</h5>
-        <span class="text-sm text-body">Correo: {{email}}</span>
-        <span class="text-sm text-body">Telefono: {{telefono}}</span>
+        <h5 class="mb-0.5 text-xl font-semibold tracking-tight text-heading">Inscripción: {{id}}</h5>
+        <span class="text-sm text-body">Alumno: {{nombre_alumno}} {{apellidos_alumno}}</span>
+        <span class="text-sm text-body">Curso: {{nombre_curso}}</span>
+        <span class="text-sm text-body">Fecha: {{fecha}}</span>
         <div class="flex mt-4 md:mt-6 gap-4">
-            <a href="{{url_for('alumnos.index')}}"
+            <a href="{{url_for('inscripciones.inscripcion')}}"
                 class="text-white bg-green-500 box-border border border-transparent hover:bg-green-600 focus:ring-4 focus:ring-green-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">Regresar</a>
         </div>
     </div>

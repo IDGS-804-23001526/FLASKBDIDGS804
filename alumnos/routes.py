@@ -8,9 +8,8 @@ from flask import g
 from flask_migrate import Migrate
 from alumnos.routes import alumnos, alumnos
 from models import Alumnos
-from models import db
 
-@alumnos.route("/alumn", methods = ["GET", "POST"])
+@alumnos.route("/alumno", methods = ["GET", "POST"])
 def index():
     create_form = forms.UserForm(request.form)
 
@@ -21,6 +20,9 @@ def index():
 def alumnoss():
     create_form = forms.UserForm(request.form)
     if request.method == "POST":
+        if not create_form.validate():
+            return render_template("alumnos/Alumnos.html", form=create_form)
+            
         alum = Alumnos(nombre = create_form.nombre.data,
         apellidos = create_form.apellidos.data,
         email = create_form.email.data,
@@ -32,7 +34,7 @@ def alumnoss():
         return redirect(url_for("alumnos.index"))
     return render_template("alumnos/Alumnos.html", form = create_form)
 
-@alumnos.route("/detalles", methods = ["GET", "POST"])
+@alumnos.route("/alumnos/detalles", methods = ["GET", "POST"])
 def detalles():
     create_form = forms.UserForm(request.form)
     if request.method == "GET":
@@ -47,12 +49,13 @@ def detalles():
 
     return render_template("alumnos/detalles.html", id = id, nombre = nombre, apellidos = apellidos, email = email, telefono = telefono)
 
-@alumnos.route("/modificar", methods = ["GET", "POST"])
+@alumnos.route("/alumnos/modificar", methods = ["GET", "POST"])
 def modificar():
     create_form = forms.UserForm(request.form)
 
     if request.method == "GET":
         id = request.args.get("id")
+        print(id)
         alum1 = db.session.query(Alumnos).filter(Alumnos.id == id).first()
         id = request.args.get("id")
         create_form.id.data = alum1.id
@@ -75,7 +78,7 @@ def modificar():
         return redirect(url_for("alumnos.index"))
     return render_template("alumnos/modificar.html", form = create_form)
 
-@alumnos.route("/eliminar", methods = ["GET", "POST"])
+@alumnos.route("/alumnos/eliminar", methods = ["GET", "POST"])
 def eliminar():
     create_form = forms.UserForm(request.form)
 
@@ -96,3 +99,4 @@ def eliminar():
         db.session.commit()
         return redirect(url_for("alumnos.index"))
     return render_template("alumnos/eliminar.html", form = create_form)
+ 

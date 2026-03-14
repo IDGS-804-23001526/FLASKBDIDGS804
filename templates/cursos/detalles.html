@@ -1,0 +1,100 @@
+{% extends "layout.html" %}
+
+{% block container %}
+
+<div class="relative bg-neutral-primary-soft max-w-xs w-full p-6 border border-default rounded-base shadow-xs">
+    <button id="dropdownButton" data-dropdown-toggle="dropdown"
+        class="absolute top-2 end-2 text-body hover:text-heading bg-neutral-primary-soft box-border border border-transparent hover:bg-neutral-tertiary focus:ring-4 focus:ring-neutral-tertiary rounded-base p-1.5 focus:outline-none"
+        type="button">
+        <span class="sr-only">Open dropdown</span>
+        <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+            viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-linecap="round" stroke-width="3" d="M6 12h.01m6 0h.01m5.99 0h.01" />
+        </svg>
+    </button>
+    <!-- Dropdown menu -->
+    <div id="dropdown"
+        class="z-10 bg-neutral-primary-medium border border-default-medium rounded-base shadow-lg w-36 hidden">
+        <ul class="p-2 text-sm text-body font-medium" aria-labelledby="dropdownButton">
+            <li>
+                <a href="#"
+                    class="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded-md">Edit</a>
+            </li>
+            <li>
+                <a href="#"
+                    class="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded-md">Export
+                    Data</a>
+            </li>
+            <li>
+                <a href="#"
+                    class="inline-flex items-center w-full p-2 text-fg-danger hover:bg-neutral-tertiary-medium rounded-md">Delete</a>
+            </li>
+        </ul>
+    </div>
+    <div class="flex flex-col items-center">
+        <img class="w-24 h-24 mb-6 rounded-full" src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+            alt="Bonnie image" />
+        <h5 class="mb-0.5 text-xl font-semibold tracking-tight text-heading text-center">Nombre: {{nombre}}</h5>
+        <span class="text-sm text-body">Id Curso: {{id}}</span>
+        <span class="text-sm text-body text-center">Descripción: {{descripcion}}</span>
+        <span class="text-sm text-body">Nombre maestro: {{nombre_maestro}} {{apellido_maestro}}</span>
+
+        <div class="w-full mt-6 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm overflow-hidden">
+
+            <div class="px-4 py-3 border-b border-gray-200 bg-whit flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z">
+                        </path>
+                    </svg>
+                    <h6 class="text-sm font-bold text-heading m-0">Alumnos Inscritos</h6>
+                </div>
+                <span
+                    class="bg-green-100 text-green-800 text-xs font-semibold px-2.5 py-0.5 rounded-full dark:text-green-300">
+                    {{ alumnos_inscritos|length }}
+                </span>
+            </div>
+
+            <div class="p-2 bg-white">
+                {% if alumnos_inscritos %}
+                <ul class="flex flex-col space-y-1">
+                    {% for alumno in alumnos_inscritos %}
+                    <li
+                        class="flex items-center gap-3 px-3 py-2.5 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200">
+
+                        <div
+                            class="flex-shrink-0 w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center text-blue-600 dark:text-blue-300 font-bold text-xs uppercase">
+                            {{ alumno.nombre[0] }}
+                        </div>
+
+                        <div class="flex-1 min-w-0">
+                            <p class="text-sm font-medium text-heading truncate">
+                                {{ alumno.nombre }} {{ alumno.apellidos }}
+                            </p>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <div class="flex flex-col items-center justify-center py-6 px-4 text-center">
+                    <svg class="w-10 h-10 text-gray-300 dark:text-gray-600 mb-2" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                            d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4">
+                        </path>
+                    </svg>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Este curso aún no tiene alumnos.</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="flex mt-4 md:mt-6 gap-4">
+            <a href="{{url_for('cursos.curso')}}"
+                class="text-white bg-green-500 box-border border border-transparent hover:bg-green-600 focus:ring-4 focus:ring-green-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">Regresar</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

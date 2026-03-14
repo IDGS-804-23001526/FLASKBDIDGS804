@@ -1,0 +1,109 @@
+{% extends "layout.html" %}
+
+{% block container %}
+<div class="w-full max-w-2xl mx-auto px-4 py-8">
+
+    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 mb-6">
+        <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Consulta de Cursos por Alumno</h2>
+
+        <form method="POST" class="flex flex-col sm:flex-row gap-4 items-end">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+            <div class="flex-1 w-full">
+                <label for="id_alumno" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                    Selecciona un alumno
+                </label>
+                {{ form.id_alumno(class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600
+                dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500") }}
+            </div>
+
+            <button type="submit"
+                class="w-full sm:w-auto text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                Consultar
+            </button>
+        </form>
+    </div>
+
+    {% if request.method == 'POST' and alumno_seleccionado %}
+    <div
+        class="w-full bg-gray-50 dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm overflow-hidden">
+
+        <div
+            class="px-4 py-3 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor"
+                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M5.121 17.804A9 9 0 1118.88 17.804M15 11a3 3 0 11-6 0 3 3 0 016 0z">
+                    </path>
+                </svg>
+
+                <div>
+                    <h6 class="text-sm font-bold text-gray-900 dark:text-white m-0">
+                        Cursos de {{ alumno_seleccionado.nombre }} {{ alumno_seleccionado.apellidos }}
+                    </h6>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">
+                        Alumno ID: <span class="font-medium text-gray-700 dark:text-gray-300">{{ alumno_seleccionado.id
+                            }}</span>
+                    </p>
+                </div>
+            </div>
+
+            <span
+                class="bg-green-100 text-green-800 text-xs font-semibold px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">
+                {{ nombre_cursos|length }}
+            </span>
+        </div>
+
+        <div class="p-2 bg-white dark:bg-gray-800">
+            {% if nombre_cursos %}
+            <ul class="flex flex-col space-y-2">
+                {% for curso in nombre_cursos %}
+                <li
+                    class="px-4 py-3 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 border border-gray-100 dark:border-gray-700">
+
+                    <div class="flex items-start justify-between gap-3">
+                        <div class="flex-1 min-w-0">
+                            <p class="text-sm font-semibold text-gray-900 dark:text-white">
+                                {{ curso.nombre }}
+                            </p>
+
+                            {% if curso.descripcion %}
+                            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                                {{ curso.descripcion }}
+                            </p>
+                            {% endif %}
+
+                            <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">
+                                Maestro: {{ curso.maestro.nombre }} {{ curso.maestro.apellidos }}
+                            </p>
+                        </div>
+
+                        <span
+                            class="shrink-0 bg-blue-100 text-gray-500 text-xs font-medium px-2.5 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-300">
+                            Curso #{{ curso.id }}
+                        </span>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <div class="flex flex-col items-center justify-center py-6 px-4 text-center">
+                <svg class="w-10 h-10 text-gray-300 dark:text-gray-600 mb-2" fill="none" stroke="currentColor"
+                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                        d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4">
+                    </path>
+                </svg>
+                <p class="text-sm text-gray-500 dark:text-gray-400">
+                    Este alumno aún no está inscrito en cursos.
+                </p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+
+</div>
+{% endblock %}
